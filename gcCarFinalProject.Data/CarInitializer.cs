@@ -171,6 +171,8 @@ namespace gcCarFinalProject.Data
                 CarColor = "White",
                 CarYear = 2016
             });
+            context.SaveChanges();
+            base.Seed(context);
         }
     }
 }

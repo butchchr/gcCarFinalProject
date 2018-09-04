@@ -188,6 +188,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\CarsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -281,6 +282,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\gcCarFinalProject.Data\gcCarFinalProject.Data.csproj">
+      <Project>{b66d4928-e487-4355-8435-3ae0cff2f3c5}</Project>
+      <Name>gcCarFinalProject.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gcCarFinalProject.Domain\gcCarFinalProject.Domain.csproj">
+      <Project>{14f349ad-35ba-4ff4-bb32-5073760abd60}</Project>
+      <Name>gcCarFinalProject.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

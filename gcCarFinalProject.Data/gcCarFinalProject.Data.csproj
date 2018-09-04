@@ -57,5 +57,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\gcCarFinalProject.Domain\gcCarFinalProject.Domain.csproj">
+      <Project>{14f349ad-35ba-4ff4-bb32-5073760abd60}</Project>
+      <Name>gcCarFinalProject.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

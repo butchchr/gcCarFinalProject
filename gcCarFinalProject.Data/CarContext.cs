@@ -9,7 +9,7 @@ using gcCarFinalProject.Domain.Models;
 
 namespace gcCarFinalProject.Data
 {
-    class CarContext : DbContext
+    public class CarContext : DbContext
     {
         public CarContext() : base("GCCars")
         {
