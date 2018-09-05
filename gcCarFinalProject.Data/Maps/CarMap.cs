@@ -16,6 +16,11 @@ namespace gcCarFinalProject.Data.Maps
             HasKey(x => x.Id);
             Property(x => x.Id)
                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(x => x.CarMake);
+            Property(x => x.CarModel);
+            Property(x => x.CarColor);
+            Property(x => x.CarYear);
+
         }
     }
 }

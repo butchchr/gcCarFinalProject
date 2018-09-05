@@ -13,7 +13,7 @@ namespace gcCarFinalProject.Data
     {
         public CarContext() : base("GCCars")
         {
-
+            Database.SetInitializer(new CarInitializer());
         }
 
         public DbSet<Car> Cars { get; set; }
