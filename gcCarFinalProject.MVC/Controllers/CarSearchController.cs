@@ -8,6 +8,9 @@ namespace gcCarFinalProject.MVC.Controllers
 {
     public class CarSearchController : Controller
     {
-
+        public ActionResult CarSearch()
+        {
+            return View();
+        }
     }
 }
