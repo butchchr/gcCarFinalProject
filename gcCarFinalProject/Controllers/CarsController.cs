@@ -8,8 +8,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.Results;
 using gcCarFinalProject.Data;
 using gcCarFinalProject.Domain.Models;
+using gcCarFinalProject.Models;
 
 namespace gcCarFinalProject.Controllers
 {
@@ -17,89 +19,72 @@ namespace gcCarFinalProject.Controllers
     {
         private CarContext db = new CarContext();
 
-        // GET: api/Cars
-        public IQueryable<Car> GetCars()
+        [HttpGet]
+        public IEnumerable<Car> Get(CarQueryModel model)
         {
-            return db.Cars;
+            IQueryable<Car> cars = db.Cars;
+            if (! string.IsNullOrWhiteSpace(model.Make))
+            {
+                cars = cars.Where(c => string.Equals(c.CarMake, model.Make, StringComparison.CurrentCultureIgnoreCase));
+            }
+            
+            if (!string.IsNullOrWhiteSpace(model.Model))
+            {
+                cars = cars.Where(c => string.Equals(c.CarModel, model.Model, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Color))
+            {
+                cars = cars.Where(c => string.Equals(c.CarColor, model.Color, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            if (model.Year.HasValue)
+            {
+                cars = cars.Where(c => c.CarYear == model.Year.Value);
+            }
+
+            return cars;
         }
 
-        // GET: api/Cars/5
-        [ResponseType(typeof(Car))]
-        public IHttpActionResult GetCar(int id)
+        [HttpPut]
+        public IHttpActionResult Put(Car model)
         {
-            Car car = db.Cars.Find(id);
-            if (car == null)
-            {
-                return NotFound();
-            }
+            this.db.Cars.Add(model);
+            this.db.SaveChanges();
 
-            return Ok(car);
+            return this.StatusCode(HttpStatusCode.Created);
         }
 
-        // PUT: api/Cars/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutCar(int id, Car car)
+        [HttpPatch]
+        public IHttpActionResult Patch(Car model)
         {
-            if (!ModelState.IsValid)
+            var car = this.db.Cars.SingleOrDefault(c => c.Id == model.Id);
+
+            if (car != null)
             {
-                return BadRequest(ModelState);
+                // TODO: update the fields on the matched entity
+                this.db.SaveChanges();
+
+                return this.StatusCode(HttpStatusCode.NoContent);
             }
 
-            if (id != car.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(car).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CarExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            return this.NotFound();
         }
 
-        // POST: api/Cars
-        [ResponseType(typeof(Car))]
-        public IHttpActionResult PostCar(Car car)
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
         {
-            if (!ModelState.IsValid)
+            var car = this.db.Cars.SingleOrDefault(c => c.Id == id);
+
+            if (car != null)
             {
-                return BadRequest(ModelState);
+                this.db.Cars.Remove(car);
+                this.db.SaveChanges();
+
+                return this.StatusCode(HttpStatusCode.NoContent);
             }
 
-            db.Cars.Add(car);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = car.Id }, car);
-        }
-
-        // DELETE: api/Cars/5
-        [ResponseType(typeof(Car))]
-        public IHttpActionResult DeleteCar(int id)
-        {
-            Car car = db.Cars.Find(id);
-            if (car == null)
-            {
-                return NotFound();
-            }
-
-            db.Cars.Remove(car);
-            db.SaveChanges();
-
-            return Ok(car);
+            return this.NotFound();
         }
 
         protected override void Dispose(bool disposing)
@@ -109,11 +94,6 @@ namespace gcCarFinalProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool CarExists(int id)
-        {
-            return db.Cars.Count(e => e.Id == id) > 0;
         }
     }
 }

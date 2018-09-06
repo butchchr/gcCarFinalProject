@@ -16,7 +16,7 @@ namespace gcCarFinalProject.Data
             Database.SetInitializer(new CarInitializer());
         }
 
-        public DbSet<Car> Cars { get; set; }
+        public IDbSet<Car> Cars { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

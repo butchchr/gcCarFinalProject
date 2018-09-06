@@ -150,12 +150,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Client\CarSearchClient.cs" />
     <Compile Include="Controllers\CarSearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Car.cs" />
     <Compile Include="Models\CarSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -198,7 +198,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\CarSearch\CarSearch.cshtml" />
+    <Content Include="Views\CarSearch\Index.cshtml" />
+    <Content Include="Views\CarSearch\Results.cshtml" />
+    <Content Include="Views\CarSearch\Create.cshtml" />
+    <Content Include="Views\CarSearch\Update.cshtml" />
+    <Content Include="Views\CarSearch\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -215,12 +219,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\gcCarFinalProject.Domain\gcCarFinalProject.Domain.csproj">
-      <Project>{14f349ad-35ba-4ff4-bb32-5073760abd60}</Project>
-      <Name>gcCarFinalProject.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
